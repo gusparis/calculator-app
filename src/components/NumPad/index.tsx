@@ -12,16 +12,28 @@ const NUMBERS = [
   ['.', '0', '='],
 ];
 
-const NumPad = () => (
-  <View style={styles.numPadContainer}>
-    {NUMBERS.map((numberRow, k) => (
-      <View key={`number-button-${k}`} style={styles.numPadRowContainer}>
-        {numberRow.map((number, j) => (
-          <Button key={`number-button-${j}`} value={number} />
-        ))}
-      </View>
-    ))}
-  </View>
-);
+const NumPad = (props: NumPadProps) => {
+  const { addOperand } = props;
+
+  return (
+    <View style={styles.numPadContainer}>
+      {NUMBERS.map((numberRow, k) => (
+        <View key={`number-button-${k}`} style={styles.numPadRowContainer}>
+          {numberRow.map((number, j) => (
+            <Button
+              key={`number-button-${j}`}
+              value={number}
+              action={addOperand}
+            />
+          ))}
+        </View>
+      ))}
+    </View>
+  );
+};
+
+interface NumPadProps {
+  addOperand: (number: string) => void;
+}
 
 export default NumPad;

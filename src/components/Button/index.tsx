@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
 import styles from './styles';
@@ -14,9 +14,11 @@ const Button = (props: ButtonProps) => {
   //NUMBERS COLOR #3a3a3c
   //OPERATIONS COLOR #ffd60a
 
+  const callAction = useCallback(() => action(value), [action, value]);
+
   return (
     <TouchableOpacity
-      onPress={action}
+      onPress={callAction}
       style={{ ...styles.buttonContainer, backgroundColor: buttonColor }}
       activeOpacity={0.9}>
       <Text style={{ ...styles.buttonText, color: textColor }}>{value}</Text>
@@ -26,7 +28,7 @@ const Button = (props: ButtonProps) => {
 
 interface ButtonProps {
   value: string;
-  action?: (value: string) => void;
+  action: (value: string) => void;
   textColor?: string;
   buttonColor?: string;
 }
